@@ -5,6 +5,13 @@ import "@pnotify/core/dist/PNotify.css";
 import "@pnotify/core/dist/BrightTheme.css";
 import debounce from "../node_modules/lodash.debounce/";
 
+function accets(value) {
+  return fetch(`https://restcountries.com/v3.1/name/${value}`).then((res) =>
+    res.json(),
+  );
+}
+
+
 const inputRef = document.querySelector(".checkcountry");
 const listRef = document.querySelector(".list")
 
@@ -31,22 +38,26 @@ inputRef.addEventListener(
        if(res.length === 1 ){
         console.log(res);
         
+        
+        
         listRef.innerHTML = ""
         const item = res.map(country =>{
             const languages  = Object.values(country.languages)
-            console.log(languages);
+            // console.log(languages);
             
             return `<li class="country">
              <h2>${country.name.common}</h2>
              <p>Capital: ${country.capital[0]}</p>
              <p>Population: ${country.population}</p>
              <h3>Languages: </h3>
-            <ul>${languages.map(()=>{
-                return `<li>${country.languages.fra}</li>
-                <li>${country.languages.gsw}</li>
-                <li>${country.languages.ita}</li>
-                <li>${country.languages.roh}</li>`
-            })
+            <img src="${country.flags.png}" alt="${country.flags.alt}">
+            <ul>${languages.map((item)=>{
+              
+                return`<li>${item}</li>`
+                
+                
+                
+            }).join("")
         }</ul>
             </li>`
         }).join("")
@@ -57,8 +68,4 @@ inputRef.addEventListener(
   }, 500),
 );
 
-function accets(value) {
-  return fetch(`https://restcountries.com/v3.1/name/${value}`).then((res) =>
-    res.json(),
-  );
-}
+

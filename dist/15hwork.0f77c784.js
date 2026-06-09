@@ -722,6 +722,9 @@ var _pnotifyCss = require("@pnotify/core/dist/PNotify.css");
 var _brightThemeCss = require("@pnotify/core/dist/BrightTheme.css");
 var _ = require("../node_modules/lodash.debounce/");
 var _Default = parcelHelpers.interopDefault(_);
+function accets(value) {
+    return fetch(`https://restcountries.com/v3.1/name/${value}`).then((res)=>res.json());
+}
 const inputRef = document.querySelector(".checkcountry");
 const listRef = document.querySelector(".list");
 inputRef.addEventListener("input", (0, _Default.default)((event)=>{
@@ -747,27 +750,22 @@ inputRef.addEventListener("input", (0, _Default.default)((event)=>{
             listRef.innerHTML = "";
             const item = res.map((country)=>{
                 const languages = Object.values(country.languages);
-                console.log(languages);
+                // console.log(languages);
                 return `<li class="country">
              <h2>${country.name.common}</h2>
              <p>Capital: ${country.capital[0]}</p>
              <p>Population: ${country.population}</p>
              <h3>Languages: </h3>
-            <ul>${languages.map(()=>{
-                    return `<li>${country.languages.fra}</li>
-                <li>${country.languages.gsw}</li>
-                <li>${country.languages.ita}</li>
-                <li>${country.languages.roh}</li>`;
-                })}</ul>
+            <img src="${country.flags.png}" alt="${country.flags.alt}">
+            <ul>${languages.map((item)=>{
+                    return `<li>${item}</li>`;
+                }).join("")}</ul>
             </li>`;
             }).join("");
             listRef.innerHTML = item;
         }
     });
 }, 500));
-function accets(value) {
-    return fetch(`https://restcountries.com/v3.1/name/${value}`).then((res)=>res.json());
-}
 
 },{"@pnotify/core/dist/PNotify.js":"fay4s","@pnotify/mobile/dist/PNotifyMobile.js":"5RXYV","@pnotify/mobile/dist/PNotifyMobile.css":"iv3sV","@pnotify/core/dist/PNotify.css":"c4y47","@pnotify/core/dist/BrightTheme.css":"grIyt","../node_modules/lodash.debounce/":"irvaP","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"fay4s":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
